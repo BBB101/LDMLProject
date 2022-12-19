@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Converter</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css'>
+<link rel="stylesheet" href="./static/sheet.css">
+    <link rel="stylesheet" href="./static/Toggle.css">
+
+</head>
+<body style="background-image: linear-gradient(darkmagenta,lightsalmon);">
+
+<div class="container animated bounce">
+<form id="form1" runat="server" action="/ConvertImage" method="POST" enctype=multipart/form-data style="border-radius: 25px; background-color: white; padding: 20px">
+    <div class="alert"></div>
+    <label class="toggle" style="margin-left: 46%">
+        <input type="checkbox" name="DigLet">
+        <span class="labels" data-on="Digits" data-off="Letters"></span>
+    </label>
+    <div id='img_container'><img id="preview" src="data:image/jpeg;base64,{{ img_data }}" alt="your image" title=''/></div>
+    <div class="input-group">
+    <div class="custom-file">
+    <input type="file" name="images" id="inputGroupFile01" class="imgInp custom-file-input" aria-describedby="inputGroupFileAddon01" required>
+    <label class="custom-file-label" for="inputGroupFile01">Choose File</label>
+  </div>
+
+</div>
+    <div style="margin-top: 20px;">
+    <input type="submit" value="CONVERT TO TEXT" style="margin-left: 44%">
+</div>
+     <label style="text-align: center; display: flex; justify-content: center; font-size: 20px">{{ response_data }}</label>
+</form>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script  src="./static/PreviewScript.js"></script>
+</body>
+</html>
