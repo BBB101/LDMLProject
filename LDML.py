@@ -113,24 +113,30 @@ def train_model():
     testL_img, newTestLabel = testL_img[p2], newTestLabel[p2]
     allOLImages = np.concatenate((trainL_img, testL_img), axis=0)
     allOLLabels = np.concatenate((newTrainLabel, newTestLabel), axis=0)
-    """mnist = keras.datasets.mnist
-    (trainD_img, trainD_label), (testD_img, testD_label) = mnist.load_data()
-    allD_img = np.concatenate((trainD_img, testD_img), axis=0)
-    allD_label = np.concatenate((trainD_label, testD_label), axis=0)
-    AllTestI = np.concatenate((testL_img, testD_img), axis=0)
-    AllTestL = np.concatenate((newTestLabel, testD_label), axis=0)
-    allOImg = np.concatenate((allOLImages, allD_img), axis=0)
-    allOLabel = np.concatenate((allOLLabels, allD_label), axis=0)"""
 
-
-    model = keras.Sequential([
-        keras.layers.Flatten(input_shape=(28, 28)), #First Layer - Flattens the two-dimensional array into one dimensional array
-        keras.layers.Dense(128, activation='relu'), # Second layer -128 nodes in layer activated using the activation function 'relu'
-        keras.layers.Dense(26, activation='softmax')  #Third Layer - States the amount of possible results from 0-25 / 0-9
-    ])
+    model = keras.Sequential()
+    model.add(Conv2D(filters=128, kernel_size=(5, 5), padding='same', activation='relu', \
+                     input_shape=(28, 28, 1)))
+    model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+    model.add(Conv2D(filters=64, kernel_size=(3, 3), padding='same', activation='relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Flatten())
+    model.add(Dense(units=128, activation='relu'))
+    model.add(Dropout(.5))
+    model.add(Dense(units=26, activation='softmax'))
+    model.compile(
+        optimizer='adam',
+        loss='sparse_categorical_crossentropy',
+        metrics=['accuracy']
+    )
+    model.compile(
+        optimizer='adam',
+        loss='sparse_categorical_crossentropy',
+        metrics=['accuracy']
+    )
     model.fit(allOLImages, allOLLabels, epochs=10, batch_size=512, verbose=1, \
               validation_data=(testL_img, newTestLabel))
-    model.save('my_Lmodel')
+    model.save(f'my_{x[0]}model')
 
     test_loss, test_accuracy = model.evaluate(testL_img, newTestLabel, verbose=0)
     predictions = model.predict(testL_img)
