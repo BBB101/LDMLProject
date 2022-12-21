@@ -60,7 +60,7 @@ def ImageConverter():
 
 if __name__ == '__main__':
     # key is 'secret'
-    # Files Created Using winpty openssl req -x509 -new -nodes -key myCA.key -sha256 -days 1825 -out myCA.pem
+    # Files Created Using:"winpty openssl req -x509 -new -nodes -key key.pem -sha256 -days 1825 -out cert.pem"
     context = (r'cert.pem', r'key.pem') # Encrypts Using TLS/SSL/RSA
-    app.run(debug=True, port=5000, threaded=True, ssl_context=context)
+    app.run(debug=False, port=5000, threaded=True, ssl_context=context)
 

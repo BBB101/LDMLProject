@@ -73,7 +73,10 @@ def predict(img, model):
 
     index = 0
     val = lst[0][0]
-    for i in range(1, len(lst[0])):
+    x = len(lst[0])
+    """if x > 30:
+        x = 10"""
+    for i in range(1, x):
         if lst[0][i] >= 0.05:
             print(f"{i}:{round(lst[0][i], 5)}")
         if lst[0][i] > val:
